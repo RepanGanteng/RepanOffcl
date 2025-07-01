@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WELCOME TO REPANOFFC</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Courier New', monospace;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    body.loaded #loading {
+      display: none;
+    }
+    #loading {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      z-index: 999;
+    }
+    .typewriter::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+    .glitch {
+      font-size: 3em;
+      position: relative;
+      animation: glow 1.5s infinite alternate;
+      margin: 20px;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: 'ALWAYS REPAN';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    .glitch::before {
+      color: #f0f;
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      color: #0ff;
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+    }
+    @keyframes glitchTop {
+      0% { clip: rect(0, 900px, 0, 0); }
+      20% { clip: rect(0, 900px, 40px, 0); left: -3px; }
+      40% { clip: rect(0, 900px, 25px, 0); left: 3px; }
+      60% { clip: rect(0, 900px, 5px, 0); left: -2px; }
+      80% { clip: rect(0, 900px, 30px, 0); left: 2px; }
+      100% { clip: rect(0, 900px, 0, 0); left: 0; }
+    }
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 900px, 0, 0); }
+      20% { clip: rect(40px, 900px, 60px, 0); left: 3px; }
+      40% { clip: rect(25px, 900px, 45px, 0); left: -3px; }
+      60% { clip: rect(5px, 900px, 20px, 0); left: 2px; }
+      80% { clip: rect(30px, 900px, 50px, 0); left: -2px; }
+      100% { clip: rect(0, 900px, 0, 0); left: 0; }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00f; }
+      to { text-shadow: 0 0 15px #0ff; }
+    }
+    #clock {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Loading REPANOFFC...</div>
+  <div class="typewriter" id="welcome"></div>
+  <div class="glitch">ALWAYS REPAN</div>
+  <div id="clock"></div>
+
+  <audio id="bgMusic" src="bg.mp3" autoplay loop></audio>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(() => {
+        document.body.classList.add("loaded");
+      }, 2000);
+
+      // Typing effect
+      const text = "WELCOME TO REPANOFFC";
+      let i = 0;
+      function typeWriter() {
+        if (i < text.length) {
+          document.getElementById("welcome").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100);
+        }
+      }
+      typeWriter();
+
+      // Clock
+      function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString();
+        document.getElementById("clock").textContent = time;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Music volume
+      const bg = document.getElementById("bgMusic");
+      bg.volume = 0.2;
+    });
+  </script>
+</body>
+</html>
